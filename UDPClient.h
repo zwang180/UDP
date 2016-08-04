@@ -12,7 +12,7 @@ class UDPClient {
 
   public:
 		// Constructor & User Interface
-		UDPClient(boost::asio::io_service& io_service, const string host, const int port);
+		UDPClient(boost::asio::io_service& io_service, const string dest_host, const int dest_port, const int loc_port);
 		~UDPClient();
 		// size_t Sned(struct data, boost::asio::buffer send_buffer);
 		size_t Send(short s1, short s2, short s3, short s4, double d1);
@@ -21,8 +21,10 @@ class UDPClient {
 
   private:
 		// Attributes
+    size_t size;
 		string tar_host;
 		string tar_port;
+    int local_port;
 		boost::asio::io_service& io_serv;
 		// IPv4
 		udp::socket sock;
@@ -35,7 +37,6 @@ class UDPClient {
 		// Private helper methods
 		void InitConnection();
 		void InitSocket();
-		void InitBuffer(); // Need to figure out actual data structure
 		udp::resolver::iterator FindEndPoint();
 
 		// Data Structure
@@ -43,14 +44,17 @@ class UDPClient {
 			short s1, s2, s3, s4;
 			double d1;
 
-			// Constructor
+      // Constructor 1
+      PackData() {
+      };
+			// Constructor 2
 			PackData(short a, short b, short c, short d, double e) {
 				s1 = a;
 				s2 = b;
 				s3 = c;
 				s4 = d;
 				d1 = e;
-			}
+			};
 		};
 
 };
