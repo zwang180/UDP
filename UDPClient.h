@@ -12,11 +12,13 @@ class UDPClient {
 
   public:
 		// Constructor & User Interface
+    // Constructor
 		UDPClient(boost::asio::io_service& io_service, const string dest_host, const int dest_port, const int loc_port);
+    // Destructor
 		~UDPClient();
-		// size_t Sned(struct data, boost::asio::buffer send_buffer);
+    // Send data
 		size_t Send(short s1, short s2, short s3, short s4, double d1);
-		// size_t Receive(boost::asio::buff recv_buffer)
+		// Receive data
 		size_t Receive();
 
   private:
@@ -25,30 +27,30 @@ class UDPClient {
 		string tar_host;
 		string tar_port;
     int local_port;
+    // I/O Service
 		boost::asio::io_service& io_serv;
 		// IPv4
 		udp::socket sock;
 		udp::endpoint sender;
 		udp::endpoint dest;
-		// Buffer
-		// boost::asio::buffer send_buffer;
-		// boost::asio::buffer recv_buffer;
 
 		// Private helper methods
-		void InitConnection();
+		void Prepare();
 		void InitSocket();
-		udp::resolver::iterator FindEndPoint();
+		udp::resolver::iterator FindRemote();
+    udp::endpoint FindLocal();
 
 		// Data Structure
-		struct PackData {
+		struct DataPack {
 			short s1, s2, s3, s4;
 			double d1;
 
       // Constructor 1
-      PackData() {
+      DataPack() {
+        // Nothing here
       };
 			// Constructor 2
-			PackData(short a, short b, short c, short d, double e) {
+			DataPack(short a, short b, short c, short d, double e) {
 				s1 = a;
 				s2 = b;
 				s3 = c;
