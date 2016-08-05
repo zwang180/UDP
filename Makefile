@@ -7,9 +7,9 @@ all : test
 
 test :	main.o UDPClient.o
 	$(LD) main.o UDPClient.o $(LDFLAGS) -o test
-main.o : main.cpp UDPClient.h
+main.o : main.cpp UDPClient.h DataPack.h
 	$(CXX) $(CXXFLAGS) main.cpp
-UDPClient.o : UDPClient.cpp UDPClient.h
+UDPClient.o : UDPClient.cpp UDPClient.h DataPack.h
 	$(CXX) $(CXXFLAGS) UDPClient.cpp
 clean :
 	rm test *.o
