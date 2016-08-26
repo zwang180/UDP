@@ -5,7 +5,6 @@
 
 #include <winsock2.h>
 #include <Windows.h>
-#include "DataPack.h"
 
 #pragma comment(lib, "Ws2_32.lib")
 
@@ -20,9 +19,9 @@ class Client {
     // Destructor
 		~Client();
     // Send data
-		size_t Send(DataPack* send);
+		size_t Send(char* send_buffer);
 		// Receive data
-		size_t Receive(DataPack* recv);
+		size_t Receive(char* recv_buffer);
 
   private:
 		// Class Attributes

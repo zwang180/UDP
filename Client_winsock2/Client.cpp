@@ -1,6 +1,4 @@
 #include "Client.h"
-// Remove DataPack include if you change the way of sending data
-#include "DataPack.h"
 // #include <iostream>
 /** Note that my code do not offer error checking, manually add print or
  * error throw statement AND uncomment the above include statement if you
@@ -43,17 +41,19 @@ Client::~Client() {
 }
 
 // Send data, modifiy this function however you like to make the buffer work
-size_t Client::Send(DataPack* send) {
-  // Don't think this will work, all other paramters are correct, except the buff and its size
-  // Change it to your way
-  return sendto(sock, (char *) send, sizeof(send), 0, (SOCKADDR *) &dest, sizeof(dest));
+size_t Client::Send(char* send_buffer) {
+  // In short, array is basically equivalent to pointer in C/C++
+  // Determine the size, +1 is for the end-of-string /0
+  size_t buffer_size = strlen(send_buffer) + 1;
+  return sendto(sock, send_buffer, buffer_size, 0, (SOCKADDR *) &dest, sizeof(dest));
 }
 
 // Receive data, modifiy this function however you like to make the buffer work
-size_t Client::Receive(DataPack* recv) {
-  // Don't think this will work, all other paramters are correct, except the buff and its size
-  // Change it to your way
-  return recvfrom(sock, (char *) recv, sizeof(recv), 0, (SOCKADDR *) &local, sizeof(local));
+size_t Client::Receive(char* recv_buffer) {
+  // In short, array is basically equivalent to pointer in C/C++
+  // Determine the size, +1 is for the end-of-string /0
+  size_t buffer_size = strlen(recv_buffer) + 1;
+  return recvfrom(sock, recv_buffer, buffer_size, 0, (SOCKADDR *) &local, sizeof(local));
 }
 
 // Private methods, you can not and do not need to call this function directly

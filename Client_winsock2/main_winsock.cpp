@@ -1,6 +1,4 @@
 #include "Client.h"
-// Remove DataPack include if you change the way of sending data
-#include "DataPack.h"
 // #include <iostream>
 /** Note that my code do not offer error checking, manually add print or
  * error throw statement AND uncomment the above include statement if you
@@ -22,18 +20,18 @@ int main() {
   Client* client = new Client(host, port, loc_port);
 
   // Send & Receive
-  // Send buffer, change it to your way
-  DataPack* d_send = new DataPack(7, 2, 4, 100, 7.625);
+  // Send buffer, change the size depend on your need, dynamic array can be done
+  char send_buffer[256];
   // Send data, it will return how many bytes you have sent if succeed
-  client->Send(d_send);
+  client->Send(send_buffer);
 
-  // Receive buffer, change it to your way
-  DataPack* d_recv = new DataPack();
+  // Receive buffer, change the size depend on your need, dynamic array can be done
+  char recv_buffer[256];
   // Receive data, it will return how many bytes you have received if succeed
-  client->Receive(d_recv);
+  client->Receive(recv_buffer);
 
   // Print out the data you receive, change it according to your buffer design
-  cout << d_recv->s1 << d_recv->s2 << d_recv->s3 << d_recv->s4 << d_recv->d1 << endl;
+  // cout << d_recv->s1 << d_recv->s2 << d_recv->s3 << d_recv->s4 << d_recv->d1 << endl;
   // Clean up the object and the pointer, delete statement will automatically
   // call the Destructor to close the socket and clean-up winsock2 stuff
   delete client;
